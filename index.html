@@ -727,32 +727,34 @@
   let pendingPlay = false;
 
   window.onYouTubeIframeAPIReady = function () {
-    ytPlayer = new YT.Player('yt-player', {
-      videoId: YOUTUBE_VIDEO_ID,
-      playerVars: {
-        autoplay: 0,
-        controls: 0,
-        loop: 1,
-        playlist: YOUTUBE_VIDEO_ID,
-        modestbranding: 1,
-        rel: 0,
-        fs: 0,
-      },
-      events: {
-        onReady: function (e) {
-          ytApiReady = true;
-          e.target.setVolume(70);
-          if (pendingPlay) { e.target.playVideo(); }
+    try {
+      ytPlayer = new YT.Player('yt-player', {
+        videoId: YOUTUBE_VIDEO_ID,
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          loop: 1,
+          playlist: YOUTUBE_VIDEO_ID,
+          modestbranding: 1,
+          rel: 0,
+          fs: 0,
         },
-        onStateChange: function (e) {
-          const musicBtn  = document.getElementById('music-btn');
-          const ppBtn     = document.getElementById('play-pause-btn');
-          const isPlaying = (e.data === YT.PlayerState.PLAYING);
-          musicBtn.classList.toggle('playing', isPlaying);
-          if (ppBtn) ppBtn.textContent = isPlaying ? '⏸ Pause' : '▶ Play';
+        events: {
+          onReady: function (e) {
+            ytApiReady = true;
+            e.target.setVolume(70);
+            if (pendingPlay) { e.target.playVideo(); }
+          },
+          onStateChange: function (e) {
+            const musicBtn  = document.getElementById('music-btn');
+            const ppBtn     = document.getElementById('play-pause-btn');
+            const isPlaying = (e.data === YT.PlayerState.PLAYING);
+            musicBtn.classList.toggle('playing', isPlaying);
+            if (ppBtn) ppBtn.textContent = isPlaying ? '⏸ Pause' : '▶ Play';
+          },
         },
-      },
-    });
+      });
+    } catch (e) { /* YouTube unavailable — music won't play but gallery still works */ }
   };
 
   function startMusic() {
@@ -775,6 +777,7 @@
       overlay.style.display = 'none';
       document.getElementById('gallery-page').classList.remove('hidden');
       document.getElementById('music-widget').classList.remove('hidden');
+      loadGallery();
     }, 800);
   });
 
@@ -786,20 +789,36 @@
   let touchStartX = 0;
   let touchStartY = 0;
 
-  async function loadGallery() {
-    let images = [];
-    try {
-      const res = await fetch('images.json');
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      images = await res.json();
-    } catch (err) {
-      document.getElementById('carousel-loading').textContent =
-        'Could not load images.json — make sure the file is in the project root.';
-      return;
-    }
+  // Add or remove filenames here when you change the images/ folder
+  const IMAGE_FILES = [
+    "WhatsApp Image 2026-04-26 at 22.44.39.jpeg",
+    "WhatsApp Image 2026-04-26 at 22.45.53.jpeg",
+    "WhatsApp Image 2026-04-26 at 22.48.16.jpeg",
+    "WhatsApp Image 2026-04-26 at 22.48.38.jpeg",
+    "WhatsApp Image 2026-04-26 at 22.48.47.jpeg",
+    "WhatsApp Image 2026-04-26 at 22.49.07.jpeg",
+    "WhatsApp Image 2026-04-26 at 22.49.08.jpeg",
+    "WhatsApp Image 2026-04-26 at 22.51.18 (1).jpeg",
+    "WhatsApp Image 2026-04-26 at 22.51.18.jpeg",
+    "WhatsApp Image 2026-04-26 at 22.51.19 (1).jpeg",
+    "WhatsApp Image 2026-04-26 at 22.51.19 (2).jpeg",
+    "WhatsApp Image 2026-04-26 at 22.51.19 (3).jpeg",
+    "WhatsApp Image 2026-04-26 at 22.51.19.jpeg",
+    "WhatsApp Image 2026-04-26 at 22.52.43.jpeg",
+    "WhatsApp Image 2026-04-26 at 22.53.27.jpeg",
+    "WhatsApp Image 2026-04-26 at 22.54.11.jpeg",
+    "WhatsApp Image 2026-04-26 at 22.55.07 (1).jpeg",
+    "WhatsApp Image 2026-04-26 at 22.55.07.jpeg",
+    "WhatsApp Image 2026-04-27 at 00.20.51.jpeg",
+  ];
+
+  function loadGallery() {
+    if (slides.length) return; // already loaded — don't run twice
+    const images = IMAGE_FILES;
 
     const frame = document.getElementById('carousel-frame');
-    document.getElementById('carousel-loading').remove();
+    const loadingEl = document.getElementById('carousel-loading');
+    if (loadingEl) loadingEl.remove();
 
     images.forEach(function (filename, i) {
       const slide = document.createElement('div');
@@ -936,10 +955,6 @@
     }
   });
 
-  // ===========================================================
-  // Boot
-  // ===========================================================
-  loadGallery();
 </script>
 </body>
 </html>
