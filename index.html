@@ -589,7 +589,7 @@
     <span class="couple-names">[BRIDE'S NAME] &amp; Sam</span>
     <div class="overlay-divider"><span>♡</span></div>
     <p>We are so grateful you shared in the joy of our special day</p>
-    <button id="enter-btn">Enter the Gallery &nbsp;♡</button>
+    <button id="enter-btn" onclick="enterGallery()">Enter the Gallery &nbsp;♡</button>
   </div>
 </div>
 
@@ -660,23 +660,48 @@
 
 <script>
   // ===========================================================
-  // 🎪 CONFIGURATION
-  //
-  // STEP 1 — Replace YOUR_VIDEO_ID_HERE with a funny YouTube video ID.
-  //           The video ID is the part after "?v=" in the YouTube URL.
-  //           Great options to search on YouTube:
-  //             "curb your enthusiasm theme"
-  //             "circus clown music"
-  //             "sad trombone"
-  //             "baby shark"
-  //
-  // STEP 2 — Find-and-replace "[BRIDE'S NAME]" in this file with the
-  //           bride's actual name (appears 3 times in the HTML above).
-  //
-  // STEP 3 — To add more photos, drop them in images/ and add the
-  //           filename to images.json.
+  // 🎪 CONFIGURATION — edit these before deploying
   // ===========================================================
   const YOUTUBE_VIDEO_ID = 'G44xTr8D_bw';
+
+  // YouTube / music state (declared early so enterGallery can use them)
+  let ytPlayer = null;
+  let ytApiReady = false;
+  let pendingPlay = false;
+
+  // Slides state (declared early for the same reason)
+  let slides = [];
+  let currentIndex = 0;
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  // ----------------------------------------------------------
+  // enterGallery — called by the button's onclick attribute.
+  // Defined FIRST so it works even if later init code fails.
+  // ----------------------------------------------------------
+  function enterGallery() {
+    // Guard: don't run twice
+    if (!document.getElementById('entrance-overlay').style.opacity) {
+      startMusic();
+      var overlay = document.getElementById('entrance-overlay');
+      overlay.style.transition = 'opacity 0.8s ease';
+      overlay.style.opacity = '0';
+      setTimeout(function () {
+        overlay.style.display = 'none';
+        document.getElementById('gallery-page').classList.remove('hidden');
+        document.getElementById('music-widget').classList.remove('hidden');
+        loadGallery();
+      }, 800);
+    }
+  }
+
+  function startMusic() {
+    if (ytApiReady && ytPlayer) {
+      ytPlayer.playVideo();
+    } else {
+      pendingPlay = true;
+    }
+  }
 
   // Romantic captions that cycle through the slideshow
   const CAPTIONS = [
@@ -704,27 +729,27 @@
   // ===========================================================
   // Floating heart particles on entrance overlay
   // ===========================================================
-  (function () {
-    const container = document.getElementById('heart-bg');
-    const symbols = ['♡', '♥', '✦', '✿'];
-    for (let i = 0; i < 28; i++) {
-      const el = document.createElement('span');
-      el.className = 'heart-particle';
-      el.textContent = symbols[i % symbols.length];
-      el.style.setProperty('--dur', (6 + Math.random() * 9) + 's');
-      el.style.setProperty('--del', (Math.random() * 10) + 's');
-      el.style.left = (Math.random() * 100) + '%';
-      el.style.fontSize = (0.6 + Math.random() * 1.1) + 'rem';
-      container.appendChild(el);
-    }
-  })();
+  try {
+    (function () {
+      var container = document.getElementById('heart-bg');
+      if (!container) return;
+      var symbols = ['♡', '♥', '✦', '✿'];
+      for (var i = 0; i < 28; i++) {
+        var el = document.createElement('span');
+        el.className = 'heart-particle';
+        el.textContent = symbols[i % symbols.length];
+        el.style.setProperty('--dur', (6 + Math.random() * 9) + 's');
+        el.style.setProperty('--del', (Math.random() * 10) + 's');
+        el.style.left = (Math.random() * 100) + '%';
+        el.style.fontSize = (0.6 + Math.random() * 1.1) + 'rem';
+        container.appendChild(el);
+      }
+    })();
+  } catch (e) { /* decorative only — safe to skip */ }
 
   // ===========================================================
   // YouTube Player
   // ===========================================================
-  let ytPlayer = null;
-  let ytApiReady = false;
-  let pendingPlay = false;
 
   window.onYouTubeIframeAPIReady = function () {
     try {
@@ -757,37 +782,9 @@
     } catch (e) { /* YouTube unavailable — music won't play but gallery still works */ }
   };
 
-  function startMusic() {
-    if (ytApiReady && ytPlayer) {
-      ytPlayer.playVideo();
-    } else {
-      pendingPlay = true; // play as soon as the API fires onReady
-    }
-  }
-
-  // ===========================================================
-  // Entrance overlay — dismiss and start music
-  // ===========================================================
-  document.getElementById('enter-btn').addEventListener('click', function () {
-    startMusic();
-    const overlay = document.getElementById('entrance-overlay');
-    overlay.style.transition = 'opacity 0.8s ease';
-    overlay.style.opacity = '0';
-    setTimeout(function () {
-      overlay.style.display = 'none';
-      document.getElementById('gallery-page').classList.remove('hidden');
-      document.getElementById('music-widget').classList.remove('hidden');
-      loadGallery();
-    }, 800);
-  });
-
   // ===========================================================
   // Gallery / Carousel
   // ===========================================================
-  let slides = [];
-  let currentIndex = 0;
-  let touchStartX = 0;
-  let touchStartY = 0;
 
   // Add or remove filenames here when you change the images/ folder
   const IMAGE_FILES = [
