@@ -6,7 +6,6 @@ import { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 // Replace with your funny YouTube video ID (the part after ?v= in the URL)
 const YOUTUBE_VIDEO_ID = 'G44xTr8D_bw'
 
-// Replace [BRIDE'S NAME] with the bride's actual name (appears 3 times below)
 // ─────────────────────────────────────────────────────────────
 
 const CAPTIONS = [
@@ -253,7 +252,7 @@ export default function WeddingGallery({ images }: Props) {
           <div className="overlay-content">
             <span className="overlay-ornament">— ♡ —</span>
             <h1>Thank You</h1>
-            <span className="couple-names">[BRIDE&apos;S NAME] &amp; Sam</span>
+            <span className="couple-names">Samadhi &amp; Vimukthi</span>
             <div className="overlay-divider"><span>♡</span></div>
             <p>We are so grateful you shared in the joy of our special day</p>
             <button className="enter-btn" onClick={handleEnter}>
@@ -269,7 +268,7 @@ export default function WeddingGallery({ images }: Props) {
           <header className="gallery-header">
             <span className="top-ornament">— ♡ —</span>
             <h1>Thank You for Celebrating With Us</h1>
-            <span className="gallery-couple">[BRIDE&apos;S NAME] &amp; Sam</span>
+            <span className="gallery-couple">Samadhi &amp; Vimukthi</span>
             <div className="header-divider"><span>✦</span></div>
             <p>
               Every smile, every laugh, every beautiful moment —<br />
@@ -333,7 +332,7 @@ export default function WeddingGallery({ images }: Props) {
 
           <footer className="gallery-footer">
             <span className="footer-ornament">♡</span>
-            <p>With all our love, [BRIDE&apos;S NAME] &amp; Sam</p>
+            <p>With all our love, Samadhi &amp; Vimukthi</p>
             <small>April 2026 &nbsp;·&nbsp; Forever &amp; Always</small>
           </footer>
         </div>
