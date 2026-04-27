@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You for Celebrating With Us ♡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #fdf8f4;
+      --rose-gold: #c9a96e;
+      --rose-gold-light: #e8d5b7;
+      --navy: #1a1a2e;
+      --blush: #f4d9d0;
+      --text-dark: #2c1810;
+      --text-medium: #5a3e35;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      background: var(--cream);
+      color: var(--text-dark);
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* ======================================================
+       ENTRANCE OVERLAY
+    ====================================================== */
+    #entrance-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d1b3d 50%, #1a1a2e 100%);
+      overflow: hidden;
+    }
+
+    .overlay-content {
+      text-align: center;
+      z-index: 2;
+      padding: 2rem;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    .overlay-ornament {
+      color: var(--rose-gold);
+      font-size: 1.8rem;
+      letter-spacing: 0.6rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .overlay-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 6vw, 4rem);
+      color: var(--rose-gold-light);
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .overlay-content .couple-names {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.6rem, 5vw, 3.5rem);
+      color: #fff;
+      display: block;
+      margin: 0.4rem 0 0;
+    }
+
+    .overlay-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      max-width: 280px;
+      margin: 1.4rem auto;
+    }
+
+    .overlay-divider::before,
+    .overlay-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rose-gold);
+      opacity: 0.5;
+    }
+
+    .overlay-divider span { color: var(--rose-gold); font-size: 1rem; }
+
+    .overlay-content p {
+      font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+      color: rgba(255, 255, 255, 0.65);
+      font-style: italic;
+      margin-bottom: 2rem;
+      letter-spacing: 0.03em;
+    }
+
+    #enter-btn {
+      background: transparent;
+      border: 1.5px solid var(--rose-gold);
+      color: var(--rose-gold-light);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      letter-spacing: 0.25em;
+      padding: 0.85rem 2.8rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #enter-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--rose-gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+      z-index: -1;
+    }
+
+    #enter-btn:hover::before { transform: scaleX(1); }
+    #enter-btn:hover { color: var(--navy); }
+
+    /* Floating hearts behind overlay */
+    .heart-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .heart-particle {
+      position: absolute;
+      bottom: -20px;
+      opacity: 0;
+      animation: floatHeart var(--dur) ease-in var(--del) infinite;
+      color: var(--rose-gold);
+    }
+
+    @keyframes floatHeart {
+      0%   { transform: translateY(0) rotate(-10deg); opacity: 0; }
+      10%  { opacity: 0.5; }
+      80%  { opacity: 0.2; }
+      100% { transform: translateY(-110vh) rotate(15deg); opacity: 0; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ======================================================
+       MAIN GALLERY PAGE
+    ====================================================== */
+    #gallery-page {
+      min-height: 100vh;
+      background: var(--cream);
+    }
+
+    /* Subtle radial glow background */
+    #gallery-page::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 15% 15%, rgba(201,169,110,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 85%, rgba(244,217,208,0.12) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ---- Header ---- */
+    .gallery-header {
+      text-align: center;
+      padding: 3.5rem 2rem 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .gallery-header .top-ornament {
+      color: var(--rose-gold);
+      font-size: 1.4rem;
+      letter-spacing: 0.6rem;
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+
+    .gallery-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 4.5vw, 3.2rem);
+      color: var(--navy);
+      font-weight: 400;
+      line-height: 1.25;
+    }
+
+    .gallery-header .couple-names {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.4rem, 4vw, 2.6rem);
+      color: var(--rose-gold);
+      display: block;
+      margin: 0.4rem 0 0.8rem;
+    }
+
+    .header-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      max-width: 380px;
+      margin: 1rem auto;
+    }
+
+    .header-divider::before,
+    .header-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--rose-gold), transparent);
+    }
+
+    .header-divider span { color: var(--rose-gold); font-size: 1rem; }
+
+    .gallery-header p {
+      font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+      color: var(--text-medium);
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    /* ---- Carousel Section ---- */
+    .carousel-section {
+      position: relative;
+      max-width: 860px;
+      margin: 1rem auto 0;
+      padding: 0 2rem 1.5rem;
+      z-index: 1;
+    }
+
+    /* Frame */
+    .carousel-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      border-radius: 2px;
+      box-shadow:
+        0 2px 0 var(--rose-gold),
+        0 22px 60px rgba(26,26,46,0.18),
+        0 0 0 1px rgba(201,169,110,0.25);
+      background: var(--navy);
+      cursor: pointer;
+    }
+
+    .carousel-loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--rose-gold);
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.6rem;
+      font-style: italic;
+    }
+
+    /* Slides */
+    .carousel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.65s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-slide.active { opacity: 1; }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Navigation arrows */
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(253,248,244,0.92);
+      border: 1px solid rgba(201,169,110,0.5);
+      color: var(--rose-gold);
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      font-size: 1.6rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      transition: all 0.3s ease;
+    }
+
+    .carousel-arrow:hover {
+      background: var(--rose-gold);
+      color: #fff;
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    .carousel-arrow.prev { left: -23px; }
+    .carousel-arrow.next { right: -23px; }
+
+    @media (max-width: 600px) {
+      .carousel-section { padding: 0 0.5rem 1.5rem; }
+      .carousel-arrow.prev { left: 6px; }
+      .carousel-arrow.next { right: 6px; }
+      .carousel-arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 1.3rem;
+        background: rgba(253,248,244,0.85);
+      }
+    }
+
+    /* Caption */
+    .carousel-caption {
+      text-align: center;
+      padding: 1.1rem 1rem 0.3rem;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--text-medium);
+      min-height: 2.4rem;
+      transition: opacity 0.35s ease;
+    }
+
+    /* Counter */
+    .carousel-counter {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-medium);
+      opacity: 0.5;
+      letter-spacing: 0.12em;
+      padding-bottom: 0.6rem;
+    }
+
+    /* Dots */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      padding: 0.6rem 0 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--rose-gold-light);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0;
+    }
+
+    .dot.active {
+      background: var(--rose-gold);
+      transform: scale(1.35);
+    }
+
+    .dot:hover { background: var(--rose-gold); }
+
+    /* ---- Footer ---- */
+    .gallery-footer {
+      text-align: center;
+      padding: 3rem 2rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .gallery-footer .footer-ornament {
+      color: var(--rose-gold);
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .gallery-footer p {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      color: var(--text-medium);
+      margin-bottom: 0.6rem;
+    }
+
+    .gallery-footer small {
+      font-size: 0.8rem;
+      color: var(--text-medium);
+      opacity: 0.45;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    /* ======================================================
+       FULLSCREEN MODAL
+    ====================================================== */
+    #fullscreen-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      background: rgba(8, 6, 14, 0.97);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    #fullscreen-modal.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    #fullscreen-modal img {
+      max-width: 95vw;
+      max-height: 93vh;
+      object-fit: contain;
+      border: 1px solid rgba(201,169,110,0.15);
+    }
+
+    #close-fs-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: transparent;
+      border: 1px solid rgba(201,169,110,0.5);
+      color: var(--rose-gold);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s;
+    }
+
+    #close-fs-btn:hover { background: var(--rose-gold); color: white; border-color: var(--rose-gold); }
+
+    /* ======================================================
+       MUSIC WIDGET
+    ====================================================== */
+    #music-widget {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 800;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.6rem;
+    }
+
+    .music-panel {
+      background: rgba(20, 16, 36, 0.97);
+      border: 1px solid rgba(201,169,110,0.35);
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+      display: none;
+      flex-direction: column;
+      gap: 0.7rem;
+      min-width: 170px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      animation: fadeInUp 0.25s ease;
+    }
+
+    .music-panel.open { display: flex; }
+
+    .music-panel label {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    #volume-slider {
+      width: 100%;
+      accent-color: var(--rose-gold);
+      cursor: pointer;
+    }
+
+    #play-pause-btn {
+      background: var(--rose-gold);
+      border: none;
+      color: var(--navy);
+      border-radius: 5px;
+      padding: 0.45rem 0.9rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: opacity 0.2s;
+    }
+
+    #play-pause-btn:hover { opacity: 0.82; }
+
+    #music-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 1.5px solid var(--rose-gold);
+      color: var(--rose-gold);
+      font-size: 1.35rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 22px rgba(26,26,46,0.5);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    #music-btn:hover { transform: scale(1.1); }
+
+    /* Pulse ring when music is playing */
+    #music-btn.playing::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 2px solid var(--rose-gold);
+      opacity: 0;
+      animation: musicPulse 1.8s ease-out infinite;
+    }
+
+    @keyframes musicPulse {
+      0%   { transform: scale(1); opacity: 0.55; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    /* ======================================================
+       HIDDEN YOUTUBE PLAYER
+    ====================================================== */
+    #yt-container {
+      position: absolute;
+      left: -9999px;
+      top: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    /* ======================================================
+       UTILITY
+    ====================================================== */
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<!-- =====================================================
+     ENTRANCE OVERLAY
+     (clicking "Enter" starts the music — bypasses
+      browser autoplay restrictions)
+===================================================== -->
+<div id="entrance-overlay">
+  <div class="heart-bg" id="heart-bg"></div>
+  <div class="overlay-content">
+    <span class="overlay-ornament">— ♡ —</span>
+    <h1>Thank You</h1>
+    <span class="couple-names">[BRIDE'S NAME] &amp; Sam</span>
+    <div class="overlay-divider"><span>♡</span></div>
+    <p>We are so grateful you shared in the joy of our special day</p>
+    <button id="enter-btn">Enter the Gallery &nbsp;♡</button>
+  </div>
+</div>
+
+<!-- =====================================================
+     MAIN GALLERY
+===================================================== -->
+<div id="gallery-page" class="hidden">
+
+  <header class="gallery-header">
+    <span class="top-ornament">— ♡ —</span>
+    <h1>Thank You for Celebrating With Us</h1>
+    <span class="couple-names">[BRIDE'S NAME] &amp; Sam</span>
+    <div class="header-divider"><span>✦</span></div>
+    <p>
+      Every smile, every laugh, every beautiful moment —<br>
+      we treasure them all.
+    </p>
+  </header>
+
+  <main class="carousel-section">
+    <div class="carousel-frame" id="carousel-frame">
+      <div class="carousel-loading" id="carousel-loading">Loading memories... ♡</div>
+    </div>
+    <button class="carousel-arrow prev" id="prev-btn" aria-label="Previous photo">&#8249;</button>
+    <button class="carousel-arrow next" id="next-btn" aria-label="Next photo">&#8250;</button>
+    <p class="carousel-caption" id="caption"></p>
+    <div class="carousel-counter" id="counter"></div>
+    <div class="carousel-dots" id="dots"></div>
+  </main>
+
+  <footer class="gallery-footer">
+    <span class="footer-ornament">♡</span>
+    <p>With all our love, [BRIDE'S NAME] &amp; Sam</p>
+    <small>April 2026 &nbsp;·&nbsp; Forever &amp; Always</small>
+  </footer>
+
+</div>
+
+<!-- =====================================================
+     FULLSCREEN MODAL
+===================================================== -->
+<div id="fullscreen-modal" role="dialog" aria-modal="true" aria-label="Full size photo">
+  <button id="close-fs-btn" aria-label="Close full screen">✕</button>
+  <img id="fs-img" alt="Wedding photo" />
+</div>
+
+<!-- =====================================================
+     MUSIC WIDGET (bottom-right corner)
+===================================================== -->
+<div id="music-widget" class="hidden">
+  <div class="music-panel" id="music-panel">
+    <label>Volume</label>
+    <input type="range" id="volume-slider" min="0" max="100" value="70">
+    <button id="play-pause-btn">⏸ Pause</button>
+  </div>
+  <button id="music-btn" aria-label="Music controls">🎵</button>
+</div>
+
+<!-- =====================================================
+     HIDDEN YOUTUBE PLAYER
+===================================================== -->
+<div id="yt-container">
+  <div id="yt-player"></div>
+</div>
+
+<!-- YouTube IFrame Player API — must be loaded before the script below -->
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+  // ===========================================================
+  // 🎪 CONFIGURATION
+  //
+  // STEP 1 — Replace YOUR_VIDEO_ID_HERE with a funny YouTube video ID.
+  //           The video ID is the part after "?v=" in the YouTube URL.
+  //           Great options to search on YouTube:
+  //             "curb your enthusiasm theme"
+  //             "circus clown music"
+  //             "sad trombone"
+  //             "baby shark"
+  //
+  // STEP 2 — Find-and-replace "[BRIDE'S NAME]" in this file with the
+  //           bride's actual name (appears 3 times in the HTML above).
+  //
+  // STEP 3 — To add more photos, drop them in images/ and add the
+  //           filename to images.json.
+  // ===========================================================
+  const YOUTUBE_VIDEO_ID = 'G44xTr8D_bw';
+
+  // Romantic captions that cycle through the slideshow
+  const CAPTIONS = [
+    "A moment we'll treasure forever ♡",
+    "Pure joy, captured in time ✨",
+    "Where memories become magic ♡",
+    "The most beautiful day of our lives",
+    "Surrounded by love ♡",
+    "Moments like these last a lifetime ✨",
+    "Our hearts were so full ♡",
+    "Thank you for being part of our story",
+    "Love, laughter, and forever ♡",
+    "Every photo tells our love story ✨",
+    "Cherished memories with cherished people ♡",
+    "The beginning of our forever ✨",
+    "With gratitude and love ♡",
+    "These moments made our day perfect ✨",
+    "Joy shared is joy doubled ♡",
+    "A celebration of love ✨",
+    "Forever in our hearts ♡",
+    "The most magical day ✨",
+    "Thank you for sharing our happiness ♡",
+  ];
+
+  // ===========================================================
+  // Floating heart particles on entrance overlay
+  // ===========================================================
+  (function () {
+    const container = document.getElementById('heart-bg');
+    const symbols = ['♡', '♥', '✦', '✿'];
+    for (let i = 0; i < 28; i++) {
+      const el = document.createElement('span');
+      el.className = 'heart-particle';
+      el.textContent = symbols[i % symbols.length];
+      el.style.setProperty('--dur', (6 + Math.random() * 9) + 's');
+      el.style.setProperty('--del', (Math.random() * 10) + 's');
+      el.style.left = (Math.random() * 100) + '%';
+      el.style.fontSize = (0.6 + Math.random() * 1.1) + 'rem';
+      container.appendChild(el);
+    }
+  })();
+
+  // ===========================================================
+  // YouTube Player
+  // ===========================================================
+  let ytPlayer = null;
+  let ytApiReady = false;
+  let pendingPlay = false;
+
+  window.onYouTubeIframeAPIReady = function () {
+    ytPlayer = new YT.Player('yt-player', {
+      videoId: YOUTUBE_VIDEO_ID,
+      playerVars: {
+        autoplay: 0,
+        controls: 0,
+        loop: 1,
+        playlist: YOUTUBE_VIDEO_ID,
+        modestbranding: 1,
+        rel: 0,
+        fs: 0,
+      },
+      events: {
+        onReady: function (e) {
+          ytApiReady = true;
+          e.target.setVolume(70);
+          if (pendingPlay) { e.target.playVideo(); }
+        },
+        onStateChange: function (e) {
+          const musicBtn  = document.getElementById('music-btn');
+          const ppBtn     = document.getElementById('play-pause-btn');
+          const isPlaying = (e.data === YT.PlayerState.PLAYING);
+          musicBtn.classList.toggle('playing', isPlaying);
+          if (ppBtn) ppBtn.textContent = isPlaying ? '⏸ Pause' : '▶ Play';
+        },
+      },
+    });
+  };
+
+  function startMusic() {
+    if (ytApiReady && ytPlayer) {
+      ytPlayer.playVideo();
+    } else {
+      pendingPlay = true; // play as soon as the API fires onReady
+    }
+  }
+
+  // ===========================================================
+  // Entrance overlay — dismiss and start music
+  // ===========================================================
+  document.getElementById('enter-btn').addEventListener('click', function () {
+    startMusic();
+    const overlay = document.getElementById('entrance-overlay');
+    overlay.style.transition = 'opacity 0.8s ease';
+    overlay.style.opacity = '0';
+    setTimeout(function () {
+      overlay.style.display = 'none';
+      document.getElementById('gallery-page').classList.remove('hidden');
+      document.getElementById('music-widget').classList.remove('hidden');
+    }, 800);
+  });
+
+  // ===========================================================
+  // Gallery / Carousel
+  // ===========================================================
+  let slides = [];
+  let currentIndex = 0;
+  let touchStartX = 0;
+  let touchStartY = 0;
+
+  async function loadGallery() {
+    let images = [];
+    try {
+      const res = await fetch('images.json');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      images = await res.json();
+    } catch (err) {
+      document.getElementById('carousel-loading').textContent =
+        'Could not load images.json — make sure the file is in the project root.';
+      return;
+    }
+
+    const frame = document.getElementById('carousel-frame');
+    document.getElementById('carousel-loading').remove();
+
+    images.forEach(function (filename, i) {
+      const slide = document.createElement('div');
+      slide.className = 'carousel-slide' + (i === 0 ? ' active' : '');
+
+      const img = document.createElement('img');
+      img.src = 'images/' + encodeURIComponent(filename);
+      img.alt = 'Memory ' + (i + 1);
+      img.loading = i < 3 ? 'eager' : 'lazy';
+      img.addEventListener('click', function () { openFullscreen(i); });
+
+      slide.appendChild(img);
+      frame.appendChild(slide);
+      slides.push(slide);
+    });
+
+    buildDots(images.length);
+    setCaption(0);
+    setCounter(images.length);
+  }
+
+  function buildDots(count) {
+    const container = document.getElementById('dots');
+    for (let i = 0; i < count; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'dot' + (i === 0 ? ' active' : '');
+      btn.setAttribute('aria-label', 'Go to photo ' + (i + 1));
+      btn.addEventListener('click', (function (idx) {
+        return function () { goTo(idx); };
+      })(i));
+      container.appendChild(btn);
+    }
+  }
+
+  function goTo(index) {
+    if (!slides.length) return;
+    const dots = document.querySelectorAll('.dot');
+    slides[currentIndex].classList.remove('active');
+    dots[currentIndex].classList.remove('active');
+
+    currentIndex = ((index % slides.length) + slides.length) % slides.length;
+
+    slides[currentIndex].classList.add('active');
+    dots[currentIndex].classList.add('active');
+    setCaption(currentIndex);
+    setCounter(slides.length);
+  }
+
+  function setCaption(index) {
+    const el = document.getElementById('caption');
+    el.style.opacity = '0';
+    setTimeout(function () {
+      el.textContent = CAPTIONS[index % CAPTIONS.length];
+      el.style.opacity = '1';
+    }, 180);
+  }
+
+  function setCounter(total) {
+    document.getElementById('counter').textContent =
+      (currentIndex + 1) + ' \u2F ' + total;
+  }
+
+  document.getElementById('prev-btn').addEventListener('click', function () { goTo(currentIndex - 1); });
+  document.getElementById('next-btn').addEventListener('click', function () { goTo(currentIndex + 1); });
+
+  // Keyboard
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft')  { goTo(currentIndex - 1); }
+    if (e.key === 'ArrowRight') { goTo(currentIndex + 1); }
+    if (e.key === 'Escape')     { closeFullscreen(); }
+  });
+
+  // Touch swipe
+  const carouselFrame = document.getElementById('carousel-frame');
+  carouselFrame.addEventListener('touchstart', function (e) {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  carouselFrame.addEventListener('touchend', function (e) {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 48) {
+      goTo(dx < 0 ? currentIndex + 1 : currentIndex - 1);
+    }
+  }, { passive: true });
+
+  // ===========================================================
+  // Fullscreen Modal
+  // ===========================================================
+  function openFullscreen(index) {
+    document.getElementById('fs-img').src = slides[index].querySelector('img').src;
+    document.getElementById('fullscreen-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeFullscreen() {
+    document.getElementById('fullscreen-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('fullscreen-modal').addEventListener('click', function (e) {
+    if (e.target === this || e.target === document.getElementById('fs-img')) {
+      closeFullscreen();
+    }
+  });
+  document.getElementById('close-fs-btn').addEventListener('click', closeFullscreen);
+
+  // ===========================================================
+  // Music Widget controls
+  // ===========================================================
+  document.getElementById('music-btn').addEventListener('click', function () {
+    document.getElementById('music-panel').classList.toggle('open');
+  });
+
+  document.getElementById('volume-slider').addEventListener('input', function () {
+    if (ytApiReady && ytPlayer) ytPlayer.setVolume(parseInt(this.value, 10));
+  });
+
+  document.getElementById('play-pause-btn').addEventListener('click', function () {
+    if (!ytApiReady || !ytPlayer) return;
+    if (ytPlayer.getPlayerState() === YT.PlayerState.PLAYING) {
+      ytPlayer.pauseVideo();
+    } else {
+      ytPlayer.playVideo();
+    }
+  });
+
+  // Close music panel on outside click
+  document.addEventListener('click', function (e) {
+    const widget = document.getElementById('music-widget');
+    if (!widget.contains(e.target)) {
+      document.getElementById('music-panel').classList.remove('open');
+    }
+  });
+
+  // ===========================================================
+  // Boot
+  // ===========================================================
+  loadGallery();
+</script>
+</body>
+</html>
