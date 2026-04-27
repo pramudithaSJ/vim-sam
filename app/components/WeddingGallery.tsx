@@ -9,25 +9,25 @@ const YOUTUBE_VIDEO_ID = 'G44xTr8D_bw'
 // ─────────────────────────────────────────────────────────────
 
 const CAPTIONS = [
-  "A moment we'll treasure forever ♡",
-  'Pure joy, captured in time ✨',
-  'Where memories become magic ♡',
-  'The most beautiful day of our lives',
-  'Surrounded by love ♡',
-  'Moments like these last a lifetime ✨',
-  'Our hearts were so full ♡',
-  'Thank you for being part of our story',
-  'Love, laughter, and forever ♡',
-  'Every photo tells our love story ✨',
-  'Cherished memories with cherished people ♡',
-  'The beginning of our forever ✨',
-  'With gratitude and love ♡',
-  'These moments made our day perfect ✨',
-  'Joy shared is joy doubled ♡',
-  'A celebration of love ✨',
-  'Forever in our hearts ♡',
-  'The most magical day ✨',
-  'Thank you for sharing our happiness ♡',
+  'Vimukthi in his natural element ✨',
+  'The face that somehow won her heart ♡',
+  'We present: Exhibit A 🎪',
+  'A candid moment he will definitely remember 😂',
+  'This man is now someone\'s husband ✨',
+  'Samadhi, it\'s not too late... just kidding ♡',
+  'One of his finest moments, documented for posterity ✨',
+  'He cleans up nicely, we promise ♡',
+  'From your friends, with love and zero regrets ✨',
+  'A true gentleman... mostly ♡',
+  'Your friends will never let you live this down ✨',
+  'Congratulations Samadhi — you deserve the world ♡',
+  'Evidence submitted by the prosecution ✨',
+  'This is why we were invited to the wedding ♡',
+  'Made with love, served with chaos ✨',
+  'We love you bro. We really, truly do ♡',
+  'The groom, ladies and gentlemen 🎉',
+  'A moment captured by his very supportive friends ✨',
+  'Cheers to the happy couple — especially Samadhi ♡',
 ]
 
 interface HeartConfig {
@@ -251,12 +251,12 @@ export default function WeddingGallery({ images }: Props) {
 
           <div className="overlay-content">
             <span className="overlay-ornament">— ♡ —</span>
-            <h1>Thank You</h1>
-            <span className="couple-names">Samadhi &amp; Vimukthi</span>
+            <h1>Congratulations!</h1>
+            <span className="couple-names">Vimukthi &amp; Samadhi</span>
             <div className="overlay-divider"><span>♡</span></div>
-            <p>We are so grateful you shared in the joy of our special day</p>
+            <p>Your friends have put together something very special for you&nbsp;🎁</p>
             <button className="enter-btn" onClick={handleEnter}>
-              Enter the Gallery &nbsp;♡
+              Open Your Gift &nbsp;♡
             </button>
           </div>
         </div>
@@ -267,12 +267,12 @@ export default function WeddingGallery({ images }: Props) {
         <div className="gallery-page">
           <header className="gallery-header">
             <span className="top-ornament">— ♡ —</span>
-            <h1>Thank You for Celebrating With Us</h1>
-            <span className="gallery-couple">Samadhi &amp; Vimukthi</span>
+            <h1>A Message From Your Friends</h1>
+            <span className="gallery-couple">Vimukthi &amp; Samadhi</span>
             <div className="header-divider"><span>✦</span></div>
             <p>
-              Every smile, every laugh, every beautiful moment —<br />
-              we treasure them all.
+              We couldn&apos;t be happier for you both. ♡<br />
+              We made this with love — and maybe a tiny bit of mischief.
             </p>
           </header>
 
@@ -332,8 +332,8 @@ export default function WeddingGallery({ images }: Props) {
 
           <footer className="gallery-footer">
             <span className="footer-ornament">♡</span>
-            <p>With all our love, Samadhi &amp; Vimukthi</p>
-            <small>April 2026 &nbsp;·&nbsp; Forever &amp; Always</small>
+            <p>With love &amp; endless laughter, Your Friends</p>
+            <small>Vimukthi — you&apos;re welcome 😂 &nbsp;·&nbsp; April 2026</small>
           </footer>
         </div>
       )}

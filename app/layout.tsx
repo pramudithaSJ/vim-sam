@@ -26,8 +26,8 @@ const dancing = Dancing_Script({
 })
 
 export const metadata: Metadata = {
-  title: 'Thank You for Celebrating With Us ♡',
-  description: 'We are so grateful you shared in the joy of our special day',
+  title: 'Congratulations Vimukthi & Samadhi! ♡',
+  description: 'A special gift from your friends — with love and a little mischief.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
