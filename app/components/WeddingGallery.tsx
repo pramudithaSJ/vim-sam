@@ -295,7 +295,7 @@ export default function WeddingGallery({ images }: Props) {
                     <img
                       src={`/images/${encodeURIComponent(filename)}`}
                       alt={`Memory ${i + 1}`}
-                      loading={i < 3 ? 'eager' : 'lazy'}
+                      loading="eager"
                     />
                   </div>
                 ))
